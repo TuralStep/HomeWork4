@@ -70,6 +70,7 @@ namespace HomeWork4.Pages.Product
                     pr.Name = Product.Name; 
                     pr.Price = Product.Price;
                     pr.Discount = Product.Discount;
+                    _context.SaveChanges();
                     return RedirectToPage("Index", new { info = "Product succesfully edited" });
                 }
                 return RedirectToPage("Index", new { info = "Could not find product" });
