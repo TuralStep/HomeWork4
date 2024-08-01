@@ -1,0 +1,67 @@
+﻿@page
+@model HomeWork4.Pages.Product.IndexModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@if (Model.Info != "")
+{
+    <div class="alert alert-success" role="alert">
+        @Model.Info
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Discount</th>
+            <th scope="col">#</th>
+            <th scope="col">#</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                <td scope="row">@item.Id</td>
+                <td scope="row">@item.Name</td>
+                <td scope="row">@item.Price$</td>
+                <td scope="row">@item.Discount%</td>
+                <td scope="row">
+                    <a class="btn btn-outline-warning" asp-page-handler="StartEdit" asp-route-iid="@item.Id">Edit</a>
+                </td>
+                <td scope="row">
+                    <a class="btn btn-outline-danger" asp-page-handler="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<form class="col-5" method="post">
+    <div class="mb-3">
+        <label class="form-label">Product Name</label>
+        <input asp-for="Product.Name" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Product Price</label>
+        <input asp-for="Product.Price" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Product Discount</label>
+        <input asp-for="Product.Discount" class="form-control" />
+    </div>
+    @if (@Model.isEdit)
+    {
+        <button type="submit" class="btn btn-warning" asp-page-handler="Edit" asp-route-id="Product.Id">Edit Product</button>
+    }
+    else
+    {
+        <button type="submit" class="btn btn-success">Add New Product</button>
+    }
+</form>
